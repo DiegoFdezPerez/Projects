@@ -67,7 +67,7 @@ public class console {
 				}
 				
 				System.out.print(" / " + sale.getStamp() +"\n");
-					
+				
 			}
 			
 			System.out.println("\n");

@@ -13,7 +13,7 @@ public class SalesGateway {
 	public static SalesGateway getInstance() {
 		if (instance==null)
 			instance = new SalesGateway();
-		
+		    
 		return instance;
 	}
 	
