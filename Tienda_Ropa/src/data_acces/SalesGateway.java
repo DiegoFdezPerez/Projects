@@ -1,6 +1,7 @@
 package data_acces;
 
 import java.sql.*;
+import java.time.Instant;
 import java.util.*;
 
 import enities.Sale;
@@ -61,6 +62,48 @@ public class SalesGateway {
 		conn.close();
 		return all;
 	}
+	
+	
+	public Sale getSale(int ticket) throws SQLException {
+		
+		Sale sale =null;
+		
+		try {
+			ConnectDB conDB = new ConnectDB();
+			conn = conDB.openConnection();
+			
+			String SQLQuery = "SELECT * FROM Ventas WHERE \"Numero de ticket\" = ?";
+			PreparedStatement myStmt = conn.prepareStatement(SQLQuery);
+			
+			myStmt.setInt(1, ticket);
+			
+			ResultSet myRs = myStmt.executeQuery();
+			myRs.next();
+			
+			List<Long> products = new ArrayList <Long>();
+			int vendor = myRs.getInt("Vendedor");
+			Instant stamp = myRs.getTimestamp("Fecha").toInstant();
+			 
+			products.add(myRs.getLong("Producto"));	
+			
+			while (myRs.next()) {
+			
+			products.add(myRs.getLong("Producto"));	
+			
+			}
+			
+			sale = new Sale(ticket,vendor,products,stamp);
+		}
+		
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		conn.close();
+		return sale;
+	}
+	
+	
 	
 	public void addSale(Sale added) throws SQLException {
 		try {

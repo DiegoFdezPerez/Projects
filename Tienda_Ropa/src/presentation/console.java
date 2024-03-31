@@ -24,7 +24,8 @@ public class console {
 		System.out.println("1 - Mostrar Inventario");
 		System.out.println("2 - Mostrar Ventas");
 		System.out.println("3 - Agregar Venta");
-		System.out.println("4 - Salir");
+		System.out.println("4 - Comprobar garantia de un producto vendido");
+		System.out.println("5 - Salir");
 		
 		option = scanner.nextInt();
 		
@@ -118,11 +119,33 @@ public class console {
 
 				sales.addSale(vendor, prod);	
 				break;	
+	
 		case 4:
+			
+			System.out.println("Inserte el numero del ticket:");
+			int ticket = scanner.nextInt();
+			
+			System.out.println("Inserte el EAN del producto:");
+			long EAN = scanner.nextLong();
+			
+			boolean warranty = sales.activeWarranty(inventory.getProduct(EAN), sales.getSale(ticket));
+			
+			System.out.print("La garantia para este producto se encuentra ");
+			
+			if (warranty) 
+				System.out.print("activa.");
+			
+			else
+				System.out.print("vencida.");	
+			
+			System.out.println("\n");
+			break;
+		
+		case 5:
 			
 			System.out.println("Saliendo del programa");
 			break;
-			
+		
 		default:
 			System.out.println("Seleccione una opcion valida");
 			break;
@@ -131,7 +154,7 @@ public class console {
 		
 		
 	}
-   while(option!=4);	
+   while(option!=5);	
 	
 	scanner.close();
 	

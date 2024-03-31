@@ -38,4 +38,5 @@ public class InventoryProductService {
 		return prod;
 		
 	}
+	
 }

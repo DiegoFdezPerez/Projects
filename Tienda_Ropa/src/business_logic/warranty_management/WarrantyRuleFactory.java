@@ -19,14 +19,14 @@ public class WarrantyRuleFactory {
 		return instance;
 	}
 	
-	public WarrantyRule getRule(InventoryProduct product, Sale ticket) {
+	public WarrantyRule getRule(String productType) {
 		
 		WarrantyRule rule = null;
 		
-		if(product.getProductType().equalsIgnoreCase("Pantalones")) {
+		if(productType.equalsIgnoreCase("Pantalones")) {
 			rule = new WarrantyRulePants ();
 		}
-		else if (product.getProductType().equalsIgnoreCase("Zapatillas")) {
+		else if (productType.equalsIgnoreCase("Zapatillas")) {
 			rule = new WarrantyRuleShoes ();
 		}
 		else {

@@ -1,3 +1,4 @@
+
 package business_logic.warranty_management;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -12,13 +13,13 @@ public class WarrantyRulePants implements WarrantyRule {
 
 	@Override
 	public boolean activeWarranty(Sale ticket) {
-		// para el resto de las prendas la garantía es de 1 año
+		// si son pantalones la garantía es de 2 años
 		
 		LocalDate now = LocalDate.now ();
 		LocalDate date = ticket.getStamp().atZone(TimeZone.getDefault().toZoneId()).toLocalDate();
 		long numberOfDays = DAYS.between(date, now);
 		
-		if( numberOfDays < 365)
+		if( numberOfDays < 730)
 		return true;
 		
 		else
