@@ -160,5 +160,43 @@ public class SalesGateway {
 		}
 		return LastTicket;
 		}
+	 
+	 public void delete(int ticket) throws SQLException{
+		 
+		 try {
+			 
+			 final String deleteSQL = "DELETE FROM ventas WHERE \"Numero de ticket\" = ?";
+			 
+			 ConnectDB conDB = new ConnectDB();
+			 conn = conDB.openConnection();
+			 
+			 PreparedStatement myStmt = conn.prepareStatement(deleteSQL);
+			 
+			 myStmt.setInt(1, ticket);
+			 
+			 myStmt.executeUpdate();
+		 }
+		 
+		 catch(Exception ex) {
+			 ex.printStackTrace();
+		 }
+		 
+		 conn.close();
+	 }
+	 
+	 public void update(Sale sale) throws SQLException{
+		 
+		 try {
+			 
+			 delete(sale.getTicketNumber());
+			 addSale(sale);
+		 }
+		 
+		 catch(Exception ex) {
+			 ex.printStackTrace();
+		 }
+
+	 }
+	 
 	}
 

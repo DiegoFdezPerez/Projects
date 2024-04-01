@@ -6,11 +6,20 @@ public class User {
 	private String name;
 	private String userType;
 	
-	//Constructor/ /
+	//Constructor//
 	
 	public User(int id, String name, String userType) {
 		
 		this.id = id;
+		this.name = name;
+		this.userType = userType;
+	}
+	
+	
+	//Constructor antes que la BD le asigne número//
+	
+	public User(String name, String userType) {
+		
 		this.name = name;
 		this.userType = userType;
 	}

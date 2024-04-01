@@ -1,5 +1,7 @@
 package data_acces;
 import java.sql.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 import enities.InventoryProduct;
 
@@ -74,5 +76,94 @@ public class InventoryGateway {
 		conn.close();
 		return product;
 	}
+	
+	public void insert (InventoryProduct product) throws SQLException {
+		
+		try {
+			 
+			final String insertSQL = "INSERT INTO inventario ('ean','marca','tipo','descripcion','cantidad','precio','margen','estado',\"Fecha de incorporacion\",\"Fecha de modificacion\")"
+					+ " VALUES (?,?,?,?,?,?,?,?,?,?)";
+			
+			ConnectDB myConnectDB = new ConnectDB();
+			 conn = myConnectDB.openConnection();
+			
+			PreparedStatement myStmt = conn.prepareStatement(insertSQL);
+			myStmt.setLong(1,product.getEan());
+			myStmt.setString(2, product.getBrand());
+			myStmt.setString(3, product.getProductType());
+			myStmt.setString(4, product.getDescription());
+			myStmt.setInt(5, product.getNumberrOfUnities());
+			myStmt.setFloat(6, product.getPrice());
+			myStmt.setFloat(7, product.getRevenueMargin());
+			myStmt.setString(8, product.getSaleState());
+			myStmt.setDate(9, Date.valueOf(product.getArrivalDate()));
+			myStmt.setDate(10, Date.valueOf(product.getModificationDate()));
+			
+			myStmt.executeUpdate();
+			
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		conn.close();
+	  }
+		
+		public void delete(Long ean) throws SQLException {
+			
+			try {
+				
+				final String deleteSQL = "DELETE FROM inventario WHERE (ean) = (?)";
+				
+				ConnectDB myConnectDB = new ConnectDB();
+				conn = myConnectDB.openConnection();
+				 
+				 PreparedStatement myStmt = conn.prepareStatement(deleteSQL);
+				 myStmt.setLong(1, ean);
+				 
+				 myStmt.executeUpdate();
+			}
+			
+			catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			
+			conn.close();
+		}
+		
+		public void update (InventoryProduct product) throws SQLException {
+			
+			try {
+				
+				final String updateSQL = "UPDATE inventario SET ('marca','tipo','descripcion','cantidad','precio','margen','estado',\"Fecha de incorporacion\",\"Fecha de modificacion\")"
+						+ "= (?,?,?,?,?,?,?,?,?) WHERE 'ean' = ?";
+				
+				ConnectDB myConnectDB = new ConnectDB();
+				conn = myConnectDB.openConnection();
+				
+				PreparedStatement myStmt = conn.prepareStatement(updateSQL);
+				
+				myStmt.setString(1, product.getBrand());
+				myStmt.setString(2, product.getProductType());
+				myStmt.setString(3, product.getDescription());
+				myStmt.setInt(4, product.getNumberrOfUnities());
+				myStmt.setFloat(5, product.getPrice());
+				myStmt.setFloat(6, product.getRevenueMargin());
+				myStmt.setString(7, product.getSaleState());
+				myStmt.setDate(8, Date.valueOf(product.getArrivalDate()));
+				myStmt.setDate(9, Date.valueOf(product.getModificationDate()));
+				myStmt.setLong(10,product.getEan());
+				
+				myStmt.executeUpdate();
+			}
+			
+			catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			
+			conn.close();
+		}
+		
+		}
 
-}
+
