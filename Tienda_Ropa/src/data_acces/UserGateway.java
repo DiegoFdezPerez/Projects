@@ -13,7 +13,7 @@ public class UserGateway {
 	private Connection conn;
 	
 
-	public UserGateway getInstance () {
+	public static UserGateway getInstance () {
 		
 		if ( instance == null) 
 			instance = new UserGateway();

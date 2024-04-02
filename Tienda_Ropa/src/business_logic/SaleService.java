@@ -69,4 +69,26 @@ public class SaleService {
 		return rule.activeWarranty(ticket);
 	}
 	
+	public void delete (int ticket) throws SQLException {
+		
+		try {
+			gateway.delete(ticket);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void update (int ticketNumber, int vendor, List<Long> products, Instant stamp) throws SQLException {
+	
+		Sale sale = new Sale (ticketNumber, vendor, products, stamp);
+		
+		try {
+			gateway.update(sale);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
 }
