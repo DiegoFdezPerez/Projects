@@ -48,10 +48,8 @@ public class UserService {
 	
 	public void insert (String name, String userType) throws SQLException {
 		
-		User user = new User (name, userType);
-		
 		try {
-			gateway.insert(user);
+			gateway.insert(name, userType);
 		}
 		
 		catch (Exception ex) {
@@ -72,10 +70,8 @@ public class UserService {
 	
 	public void update (int id, String name, String userType) throws SQLException{
 		
-		User user = new User (id, name, userType);
-		
 	try {
-			gateway.update(user);
+			gateway.update(id, name, userType);
 		}
 		
 		catch (Exception ex) {

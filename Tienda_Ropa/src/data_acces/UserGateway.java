@@ -58,7 +58,7 @@ public class UserGateway {
 		
 		try {
 			
-			final String querySQL = "SELECT * FROM usuarios WHERE 'id' = ?";
+			final String querySQL = "SELECT * FROM usuarios WHERE id = ?";
 			
 			 ConnectDB myConnectDB = new ConnectDB();
 			 conn = myConnectDB.openConnection();
@@ -67,9 +67,9 @@ public class UserGateway {
 			 myStmt.setInt(1, ID);
 			 
 			 ResultSet myRs = myStmt.executeQuery();
-			 myRs.next();
-			 
-			user = new User(myRs.getInt("id"),myRs.getString("nombre"),myRs.getString("tipo"));
+			
+			while(myRs.next())
+			 user = new User(myRs.getInt("id"),myRs.getString("nombre"),myRs.getString("tipo"));
 			
 		}
 		catch(Exception ex) {
@@ -80,18 +80,18 @@ public class UserGateway {
 		return user;
 	}
 	
-	public void insert(User user) throws SQLException{
+	public void insert(String name, String userType) throws SQLException{
 		
 		try {
 			
-			final String insertSQL = "INSERT INTO usuarios ('nombre','tipo') VALUES (?,?)";
+			final String insertSQL = "INSERT INTO usuarios (nombre,tipo) VALUES (?,?)";
 			
 			 ConnectDB myConnectDB = new ConnectDB();
 			 conn = myConnectDB.openConnection();
 			 
 			 PreparedStatement myStmt = conn.prepareStatement(insertSQL);
-			 myStmt.setString(1, user.getName());
-			 myStmt.setString(2, user.getUserType());
+			 myStmt.setString(1, name);
+			 myStmt.setString(2, userType);
 			 
 			 myStmt.executeUpdate();
 			
@@ -107,7 +107,7 @@ public class UserGateway {
 		
 		try {
 			
-			final String deleteSQL = "DELETE FROM usuarios WHERE ('id') = " + ID ;
+			final String deleteSQL = "DELETE FROM usuarios WHERE (id) = " + ID ;
 			
 			 ConnectDB myConnectDB = new ConnectDB();
 			 conn = myConnectDB.openConnection();
@@ -124,19 +124,19 @@ public class UserGateway {
 		
 	}
 	
-	public void update(User user) throws SQLException{
+	public void update(int id, String name, String userType) throws SQLException{
 		
 		try {
 			
-			final String updateSQL = "UPDATE usuarios SET ('nombre','tipo') = (?,?) WHERE 'id' = ?";
+			final String updateSQL = "UPDATE usuarios SET (nombre,tipo) = (?,?) WHERE id = ?";
 			
 			 ConnectDB myConnectDB = new ConnectDB();
 			 conn = myConnectDB.openConnection();
 			 
 			 PreparedStatement myStmt = conn.prepareStatement(updateSQL);
-			 myStmt.setString(1, user.getName());
-			 myStmt.setString(2, user.getUserType());
-			 myStmt.setInt(3, user.getId());
+			 myStmt.setString(1, name);
+			 myStmt.setString(2, userType);
+			 myStmt.setInt(3, id);
 			 
 			 myStmt.executeUpdate();
 			
