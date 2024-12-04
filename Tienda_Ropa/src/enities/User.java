@@ -2,8 +2,11 @@ package enities;
 
 public class User {
 	
-	private int id;
+
+	private int id = 1;
+
 	private String name = "Pepe";
+
 	private String userType;
 	
 	//Constructor//
