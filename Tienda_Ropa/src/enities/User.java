@@ -3,7 +3,7 @@ package enities;
 public class User {
 	
 	private int id;
-	private String name;
+	private String name = "Diego";
 	private String userType;
 	
 	//Constructor//
